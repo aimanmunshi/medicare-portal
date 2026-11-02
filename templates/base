@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediCare Portal</title>
+<style>
+:root{--a:{{ '#1d4ed8' if color=='blue' else '#15803d' }};--soft:{{ '#dbeafe' if color=='blue' else '#dcfce7' }};--ink:#0f172a;--mut:#64748b;--bg:#f1f5f9}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+nav{background:#fff;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.08);position:sticky;top:0;flex-wrap:wrap;gap:10px}
+.logo{font-weight:700;font-size:20px;color:var(--a)}
+.links a{margin-right:22px;color:var(--mut);text-decoration:none;font-weight:600}
+.links a.on,.links a:hover{color:var(--a)}
+.badge{background:var(--a);color:#fff;padding:5px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.hero{background:linear-gradient(135deg,var(--a),#0f172a);color:#fff;padding:56px 40px}
+.hero h1{margin:0 0 10px;font-size:36px}.hero p{margin:0;opacity:.85;max-width:620px;font-size:17px}
+.wrap{padding:28px 40px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.two{display:grid;gap:24px;grid-template-columns:380px 1fr}
+@media(max-width:860px){.two{grid-template-columns:1fr}nav,.hero,.wrap{padding-left:18px;padding-right:18px}}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.card h2,.card h3{margin-top:0}
+.ico{font-size:34px;color:var(--a)}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}
+button{width:100%;margin-top:18px;padding:13px;background:var(--a);color:#fff;border:0;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer}
+button.small{width:auto;margin:0;padding:7px 14px;font-size:13px;background:#dc2626}
+.row{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #e2e8f0}
+.time{background:var(--soft);color:var(--a);font-weight:700;padding:10px 12px;border-radius:10px}
+.row small{color:var(--mut);display:block}.grow{flex:1}
+.empty{color:var(--mut);text-align:center;padding:30px 0}
+.big{font-size:30px;font-weight:700;color:var(--a)}
+table{width:100%;border-collapse:collapse}td{padding:10px 6px;border-bottom:1px solid #e2e8f0}td:first-child{color:var(--mut);width:40%}
+.pill{display:inline-block;background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:7px 14px;margin:4px 6px 4px 0;font-size:13px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:24px}
+</style></head><body>
+<nav>
+  <div class="logo">&#10010; MediCare Portal</div>
+  <div class="links">
+    <a href="/" class="{{ 'on' if page=='home' }}">Home</a>
+    <a href="/doctors" class="{{ 'on' if page=='doctors' }}">Doctors</a>
+    <a href="/appointments" class="{{ 'on' if page=='appts' }}">Appointments ({{ appts|length }})</a>
+    <a href="/status" class="{{ 'on' if page=='status' }}">Live Status</a>
+  </div>
+  <div class="badge">{{ color|upper }} &middot; build {{ version }}</div>
+</nav>
+{% block body %}{% endblock %}
+<footer>Demo only. Dummy patient data. Never enter real health information.</footer>
+</body></html>
