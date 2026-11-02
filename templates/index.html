@@ -1,13 +1,99 @@
-<body style="font-family:sans-serif;margin:0">
-  <div style="background:{{ color }};color:white;padding:20px">
-    <h1>MediCare Portal - {{ color|upper }} (build {{ version }})</h1>
-    <p>Demo only. Dummy patient data.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediCare Portal</title>
+<style>
+  :root { --accent: {{ '#1d4ed8' if color == 'blue' else '#15803d' }};
+          --accent-soft: {{ '#dbeafe' if color == 'blue' else '#dcfce7' }};
+          --ink: #0f172a; --muted: #64748b; --bg: #f1f5f9; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+  nav { background: #fff; padding: 14px 40px; display: flex; justify-content: space-between;
+        align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.08); position: sticky; top: 0; }
+  .logo { font-weight: 700; font-size: 20px; color: var(--accent); }
+  .badge { background: var(--accent); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .hero { background: linear-gradient(135deg, var(--accent), #0f172a); color: #fff; padding: 60px 40px; }
+  .hero h1 { margin: 0 0 10px; font-size: 38px; }
+  .hero p { margin: 0; opacity: .85; font-size: 17px; max-width: 620px; }
+  .stats { display: flex; gap: 16px; padding: 0 40px; margin-top: -32px; flex-wrap: wrap; }
+  .stat { background: #fff; border-radius: 14px; padding: 18px 26px; box-shadow: 0 4px 14px rgba(0,0,0,.08); min-width: 160px; }
+  .stat b { display: block; font-size: 28px; color: var(--accent); }
+  .stat span { color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-columns: 380px 1fr; gap: 24px; padding: 32px 40px; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } nav, .hero, .stats, main { padding-left: 18px; padding-right: 18px; } }
+  .card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+  .card h2 { margin: 0 0 16px; font-size: 19px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 12px 0 5px; }
+  input, select { width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; }
+  input:focus, select:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  button { width: 100%; margin-top: 18px; padding: 13px; background: var(--accent); color: #fff; border: 0;
+           border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+  button:hover { filter: brightness(1.1); }
+  .appt { display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #e2e8f0; }
+  .appt:last-child { border: 0; }
+  .time { background: var(--accent-soft); color: var(--accent); font-weight: 700; padding: 10px 12px; border-radius: 10px; }
+  .appt small { color: var(--muted); display: block; }
+  .empty { color: var(--muted); padding: 30px 0; text-align: center; }
+  .secure { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 40px 28px; }
+  .secure span { background: #fff; border: 1px solid #e2e8f0; border-radius: 999px; padding: 7px 14px; font-size: 13px; }
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 20px 20px 40px; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">&#10010; MediCare Portal</div>
+  <div class="badge">{{ color|upper }} deployment &middot; build {{ version }}</div>
+</nav>
+
+<section class="hero">
+  <h1>Book your appointment in seconds</h1>
+  <p>A secure DevSecOps demo for healthcare: built, scanned and deployed automatically with Jenkins, Docker and Kubernetes.</p>
+</section>
+
+<section class="stats">
+  <div class="stat"><b>{{ appts|length }}</b><span>Appointments booked</span></div>
+  <div class="stat"><b>{{ doctors|length }}</b><span>Specialists available</span></div>
+  <div class="stat"><b>24/7</b><span>Zero-downtime releases</span></div>
+</section>
+
+<main>
+  <div class="card">
+    <h2>New appointment</h2>
+    <form method="post" action="/book">
+      <label>Patient name (dummy data only)</label>
+      <input name="name" placeholder="e.g. Test Patient" required maxlength="50">
+      <label>Doctor</label>
+      <select name="doctor">{% for d in doctors %}<option>{{ d }}</option>{% endfor %}</select>
+      <label>Time slot</label>
+      <select name="slot">{% for s in slots %}<option>{{ s }}</option>{% endfor %}</select>
+      <label>Reason for visit</label>
+      <input name="reason" placeholder="e.g. Routine check-up" maxlength="80">
+      <button>Confirm booking</button>
+    </form>
   </div>
-  <form method="post" action="/book" style="padding:20px">
-    <input name="name" placeholder="Patient name (dummy)" required>
-    <select name="doctor"><option>Dr. Rao</option><option>Dr. Mehta</option></select>
-    <button>Book</button>
-  </form>
-  <h3 style="padding:0 20px">Appointments</h3>
-  <ul>{% for a in appts %}<li>{{ a.name }} with {{ a.doctor }}</li>{% endfor %}</ul>
+
+  <div class="card">
+    <h2>Upcoming appointments</h2>
+    {% for a in appts %}
+      <div class="appt">
+        <div class="time">{{ a.slot }}</div>
+        <div><b>{{ a.name }}</b> with {{ a.doctor }}<small>{{ a.reason or 'General visit' }}</small></div>
+      </div>
+    {% else %}
+      <div class="empty">No appointments yet. Book the first one.</div>
+    {% endfor %}
+  </div>
+</main>
+
+<div class="secure">
+  <span>&#128274; Secrets scanned (Gitleaks)</span>
+  <span>&#128737; Image scanned (Trivy)</span>
+  <span>&#128100; Non-root container</span>
+  <span>&#128196; Audit logging, no patient names</span>
+  <span>&#9851; Blue-green releases</span>
+</div>
+<footer>Demo only. Dummy patient data. Never enter real health information.</footer>
 </body>
+</html>
