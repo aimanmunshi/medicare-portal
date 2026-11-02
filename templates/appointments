@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero"><h1>Appointments</h1><p>Everything booked in this session.</p></section>
+<div class="wrap"><div class="card">
+{% for a in appts %}
+  <div class="row"><div class="time">{{ a.slot }}</div>
+  <div class="grow"><b>{{ a.name }}</b> with {{ a.doctor }}<small>{{ a.reason or 'General visit' }}</small></div>
+  <form method="post" action="/cancel/{{ loop.index0 }}"><button class="small">Cancel</button></form></div>
+{% else %}<div class="empty">No appointments yet. <a href="/">Book the first one.</a></div>
+{% endfor %}
+</div></div>
+{% endblock %}
