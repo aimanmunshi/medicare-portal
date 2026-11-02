@@ -2,7 +2,41 @@
 {% block body %}
 <section class="hero"><h1>Your health, booked in seconds</h1>
 <p>Choose a specialist, pick a slot and confirm. Built, scanned and deployed automatically with Jenkins, Docker and Kubernetes.</p></section>
-<div class="wrap two">
+
+<div class="wrap">
+  <div class="card" style="border-left:6px solid #e11d48;margin-bottom:24px">
+    <h2 style="color:#e11d48">&#10084; Heart disease awareness</h2>
+    <p>Heart disease is the leading cause of death worldwide, but most cases can be prevented with early detection and healthy habits. Knowing the warning signs can save a life.</p>
+    <div class="grid" style="margin-top:16px">
+      <div>
+        <h3>Common conditions</h3>
+        <span class="pill">Coronary artery disease</span>
+        <span class="pill">Heart attack</span>
+        <span class="pill">Heart failure</span>
+        <span class="pill">Arrhythmia</span>
+        <span class="pill">High blood pressure</span>
+      </div>
+      <div>
+        <h3>Warning signs</h3>
+        <span class="pill">Chest pain or pressure</span>
+        <span class="pill">Shortness of breath</span>
+        <span class="pill">Pain in arm or jaw</span>
+        <span class="pill">Unusual fatigue</span>
+        <span class="pill">Dizziness</span>
+      </div>
+      <div>
+        <h3>Prevention tips</h3>
+        <div>&#10003; Exercise 30 minutes most days</div>
+        <div>&#10003; Eat less salt, sugar and fried food</div>
+        <div>&#10003; Do not smoke</div>
+        <div>&#10003; Check blood pressure regularly</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-bottom:0">Educational information only, not medical advice. In an emergency, call your local emergency number.</p>
+  </div>
+</div>
+
+<div class="wrap two" style="padding-top:0">
   <div class="card"><h2>New appointment</h2>
     <form method="post" action="/book">
       <label>Patient name (dummy data only)</label>
