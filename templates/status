@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero"><h1>Live deployment status</h1><p>Refresh after a blue-green switch to see which version is serving you.</p></section>
+<div class="wrap"><div class="card"><table>
+<tr><td>Active colour</td><td><b style="color:var(--a)">{{ color|upper }}</b></td></tr>
+<tr><td>Build number</td><td>{{ version }}</td></tr>
+<tr><td>Serving pod</td><td>{{ pod }}</td></tr>
+<tr><td>Pod started</td><td>{{ started }}</td></tr>
+<tr><td>Pipeline</td><td>GitHub &rarr; Jenkins &rarr; Docker Hub &rarr; Kubernetes</td></tr>
+</table></div></div>
+{% endblock %}
