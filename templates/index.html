@@ -1,0 +1,13 @@
+<body style="font-family:sans-serif;margin:0">
+  <div style="background:{{ color }};color:white;padding:20px">
+    <h1>MediCare Portal - {{ color|upper }} (build {{ version }})</h1>
+    <p>Demo only. Dummy patient data.</p>
+  </div>
+  <form method="post" action="/book" style="padding:20px">
+    <input name="name" placeholder="Patient name (dummy)" required>
+    <select name="doctor"><option>Dr. Rao</option><option>Dr. Mehta</option></select>
+    <button>Book</button>
+  </form>
+  <h3 style="padding:0 20px">Appointments</h3>
+  <ul>{% for a in appts %}<li>{{ a.name }} with {{ a.doctor }}</li>{% endfor %}</ul>
+</body>
