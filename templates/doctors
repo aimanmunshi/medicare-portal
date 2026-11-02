@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero"><h1>Our specialists</h1><p>Experienced doctors across four departments.</p></section>
+<div class="wrap grid">
+{% for d in doctors %}
+  <div class="card"><div class="ico">{{ d.icon|safe }}</div><h3>{{ d.name }}</h3>
+  <p>{{ d.dept }}<br><small>{{ d.exp }} experience</small></p></div>
+{% endfor %}
+</div>
+{% endblock %}
